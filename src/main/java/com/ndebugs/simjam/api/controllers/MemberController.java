@@ -5,6 +5,7 @@ import com.ndebugs.simjam.api.models.MemberModel;
 import com.ndebugs.simjam.api.models.ResponseMessage;
 import com.ndebugs.simjam.api.services.MemberService;
 import java.util.List;
+import javax.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,7 +25,7 @@ public class MemberController {
     private ModelMapper modelMapper;
     
     @PostMapping
-    public ResponseMessage<Member> add(@RequestBody MemberModel model) {
+    public ResponseMessage<Member> add(@RequestBody @Valid MemberModel model) {
         Member entity = modelMapper.map(model, Member.class);
         
         Member result = service.save(entity);

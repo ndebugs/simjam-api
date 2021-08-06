@@ -1,12 +1,21 @@
 package com.ndebugs.simjam.api.models;
 
 import java.time.LocalDate;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 public class MemberModel {
     
     private Integer id;
+    
+    @Size(min = 3)
     private String name;
+    
+    @NotNull
     private LocalDate birthDate;
+    
+    @NotBlank
     private String address;
 
     public Integer getId() {

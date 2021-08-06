@@ -1,10 +1,13 @@
 package com.ndebugs.simjam.api.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ndebugs.simjam.api.configurations.ApplicationConfiguration;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.ndebugs.simjam.api.entities.Member;
 import com.ndebugs.simjam.api.models.MemberModel;
 import com.ndebugs.simjam.api.services.MemberService;
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.List;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.is;
@@ -16,7 +19,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -40,13 +42,19 @@ public class MemberControllerTests {
     void whenAdd_shouldReturnEntity() throws Exception {
         MemberModel model = new MemberModel();
         model.setName("Member 1");
+        model.setBirthDate(LocalDate.of(1991, Month.JANUARY, 1));
+        model.setAddress("At home");
         
         ModelMapper mMapper = new ModelMapper();
         Member entity = mMapper.map(model, Member.class);
         
+        when(modelMapper.map(any(MemberModel.class), any())).thenReturn(entity);
         when(service.save(any(Member.class))).thenReturn(entity);
         
         ObjectMapper oMapper = new ObjectMapper();
+        oMapper.registerModule(new JavaTimeModule());
+        oMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        
         mockMvc.perform(post("/members")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(oMapper.writeValueAsString(model)))
