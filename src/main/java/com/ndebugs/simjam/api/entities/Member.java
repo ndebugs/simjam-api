@@ -5,23 +5,26 @@ import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "member")
+@SequenceGenerator(name = "member_seq", initialValue = 4)
 public class Member {
-    
+
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "member_seq")
     private Integer id;
-    
+
     @Column(nullable = false)
     private String name;
-    
+
     @Column(name = "birth_date", nullable = false)
     private LocalDate birthDate;
-    
+
     @Column(nullable = false)
     private String address;
 

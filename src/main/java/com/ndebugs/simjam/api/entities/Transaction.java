@@ -8,17 +8,20 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "transaction")
+@SequenceGenerator(name = "transaction_seq", initialValue = 7)
 public class Transaction {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "transaction_seq")
     private Integer id;
 
     @ManyToOne
@@ -31,7 +34,7 @@ public class Transaction {
 
     @Column(nullable = false)
     private BigDecimal amount;
-    
+
     @Column(nullable = false)
     private LocalDateTime time;
 
