@@ -47,6 +47,11 @@ public class ResponseMessage<T> {
     public void setTimestamp(LocalDateTime timestamp) {
         this.timestamp = timestamp;
     }
+
+    @Override
+    public String toString() {
+        return "ResponseMessage{" + "code=" + code + ", message=" + message + ", data=" + data + ", timestamp=" + timestamp + '}';
+    }
     
     public static <T> ResponseMessage<T> success(T data) {
         return new ResponseMessage(0, null, data);

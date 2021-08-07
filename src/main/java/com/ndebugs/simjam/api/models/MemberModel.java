@@ -49,4 +49,9 @@ public class MemberModel {
     public void setAddress(String address) {
         this.address = address;
     }
+
+    @Override
+    public String toString() {
+        return "MemberModel{" + "id=" + id + ", name=" + name + ", birthDate=" + birthDate + ", address=" + address + '}';
+    }
 }

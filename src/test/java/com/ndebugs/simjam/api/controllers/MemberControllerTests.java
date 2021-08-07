@@ -48,8 +48,9 @@ public class MemberControllerTests {
         ModelMapper mMapper = new ModelMapper();
         Member entity = mMapper.map(model, Member.class);
         
-        when(modelMapper.map(any(MemberModel.class), any())).thenReturn(entity);
+        when(modelMapper.map(any(MemberModel.class), any(Class.class))).thenReturn(entity);
         when(service.save(any(Member.class))).thenReturn(entity);
+        when(modelMapper.map(any(Member.class), any(Class.class))).thenReturn(model);
         
         ObjectMapper oMapper = new ObjectMapper();
         oMapper.registerModule(new JavaTimeModule());

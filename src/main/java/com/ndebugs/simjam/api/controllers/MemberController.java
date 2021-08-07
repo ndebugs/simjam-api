@@ -5,6 +5,7 @@ import com.ndebugs.simjam.api.models.MemberModel;
 import com.ndebugs.simjam.api.models.ResponseMessage;
 import com.ndebugs.simjam.api.services.MemberService;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,15 +26,22 @@ public class MemberController {
     private ModelMapper modelMapper;
     
     @PostMapping
-    public ResponseMessage<Member> add(@RequestBody @Valid MemberModel model) {
+    public ResponseMessage<MemberModel> add(@RequestBody @Valid MemberModel model) {
         Member entity = modelMapper.map(model, Member.class);
         
         Member result = service.save(entity);
-        return ResponseMessage.success(result);
+        
+        MemberModel data = modelMapper.map(result, MemberModel.class);
+        return ResponseMessage.success(data);
     }
     
     @GetMapping
-    public ResponseMessage<List<Member>> findAll() {
-        return ResponseMessage.success(service.findAll());
+    public ResponseMessage<List<MemberModel>> findAll() {
+        List<Member> result = service.findAll();
+        
+        List<MemberModel> data = result.stream()
+                .map(entity -> modelMapper.map(entity, MemberModel.class))
+                .collect(Collectors.toList());
+        return ResponseMessage.success(data);
     }
 }
