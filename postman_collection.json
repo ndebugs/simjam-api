@@ -38,7 +38,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"memberId\": 1,\n    \"type\": \"DEPOSIT\",\n    \"amount\": 1000000.00,\n    \"time\": \"2020-02-20T00:00:00\"\n}",
+					"raw": "{\n    \"memberId\": 1,\n    \"type\": \"DEPOSIT\",\n    \"amount\": 1000000.00,\n    \"timestamp\": \"2020-02-20T00:00:00\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"

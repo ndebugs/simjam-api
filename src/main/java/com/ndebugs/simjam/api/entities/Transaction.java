@@ -36,7 +36,7 @@ public class Transaction {
     private BigDecimal amount;
 
     @Column(nullable = false)
-    private LocalDateTime time;
+    private LocalDateTime timestamp;
 
     public Integer getId() {
         return id;
@@ -70,12 +70,12 @@ public class Transaction {
         this.amount = amount;
     }
 
-    public LocalDateTime getTime() {
-        return time;
+    public LocalDateTime getTimestamp() {
+        return timestamp;
     }
 
-    public void setTime(LocalDateTime time) {
-        this.time = time;
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
     }
 
     @Override
@@ -85,7 +85,7 @@ public class Transaction {
         hash = 67 * hash + Objects.hashCode(this.member);
         hash = 67 * hash + Objects.hashCode(this.type);
         hash = 67 * hash + Objects.hashCode(this.amount);
-        hash = 67 * hash + Objects.hashCode(this.time);
+        hash = 67 * hash + Objects.hashCode(this.timestamp);
         return hash;
     }
 
@@ -113,7 +113,7 @@ public class Transaction {
         if (!Objects.equals(this.amount, other.amount)) {
             return false;
         }
-        if (!Objects.equals(this.time, other.time)) {
+        if (!Objects.equals(this.timestamp, other.timestamp)) {
             return false;
         }
         return true;
@@ -121,6 +121,6 @@ public class Transaction {
 
     @Override
     public String toString() {
-        return "Transaction{" + "id=" + id + ", member=" + member + ", type=" + type + ", amount=" + amount + ", time=" + time + '}';
+        return "Transaction{" + "id=" + id + ", member=" + member + ", type=" + type + ", amount=" + amount + ", timestamp=" + timestamp + '}';
     }
 }

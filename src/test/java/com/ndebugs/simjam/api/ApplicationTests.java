@@ -23,7 +23,7 @@ class ApplicationTests {
         model.setMemberId(1);
         model.setType(TransactionType.DEPOSIT);
         model.setAmount(BigDecimal.ONE);
-        model.setTime(LocalDateTime.now());
+        model.setTimestamp(LocalDateTime.now());
         
         producer.send(model);
     }

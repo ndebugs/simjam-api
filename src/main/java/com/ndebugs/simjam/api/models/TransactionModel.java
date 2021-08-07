@@ -19,7 +19,7 @@ public class TransactionModel {
     private BigDecimal amount;
     
     @NotNull
-    private LocalDateTime time;
+    private LocalDateTime timestamp;
 
     public Integer getId() {
         return id;
@@ -53,16 +53,16 @@ public class TransactionModel {
         this.amount = amount;
     }
 
-    public LocalDateTime getTime() {
-        return time;
+    public LocalDateTime getTimestamp() {
+        return timestamp;
     }
 
-    public void setTime(LocalDateTime time) {
-        this.time = time;
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
     }
 
     @Override
     public String toString() {
-        return "TransactionModel{" + "id=" + id + ", memberId=" + memberId + ", type=" + type + ", amount=" + amount + ", time=" + time + '}';
+        return "TransactionModel{" + "id=" + id + ", memberId=" + memberId + ", type=" + type + ", amount=" + amount + ", timestamp=" + timestamp + '}';
     }
 }
