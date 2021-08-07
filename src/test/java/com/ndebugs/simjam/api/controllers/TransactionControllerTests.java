@@ -4,11 +4,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.ndebugs.simjam.api.entities.Transaction;
-import com.ndebugs.simjam.api.entities.TransactionType;
 import com.ndebugs.simjam.api.models.TransactionModel;
-import com.ndebugs.simjam.api.services.KafkaProducer;
 import com.ndebugs.simjam.api.services.MemberService;
 import com.ndebugs.simjam.api.services.TransactionService;
+import com.ndebugs.simjam.messaging.TransactionType;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -43,9 +42,6 @@ public class TransactionControllerTests {
     
     @MockBean
     MemberService memberService;
-    
-    @MockBean
-    private KafkaProducer kafkaProducer;
     
     @Test
     void whenAdd_shouldReturnEntity() throws Exception {

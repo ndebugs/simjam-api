@@ -1,8 +1,8 @@
 package com.ndebugs.simjam.api;
 
-import com.ndebugs.simjam.api.entities.TransactionType;
-import com.ndebugs.simjam.api.models.TransactionModel;
 import com.ndebugs.simjam.api.services.KafkaProducer;
+import com.ndebugs.simjam.messaging.TransactionMessage;
+import com.ndebugs.simjam.messaging.TransactionType;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.Test;
@@ -19,13 +19,13 @@ class ApplicationTests {
 
     @Test
     void whenProduce_shouldSuccess() {
-        TransactionModel model = new TransactionModel();
-        model.setMemberId(1);
-        model.setType(TransactionType.DEPOSIT);
-        model.setAmount(BigDecimal.ONE);
-        model.setTimestamp(LocalDateTime.now());
+        TransactionMessage message = new TransactionMessage();
+        message.setMemberId(1);
+        message.setType(TransactionType.DEPOSIT);
+        message.setAmount(BigDecimal.ONE);
+        message.setTimestamp(LocalDateTime.now());
         
-        producer.send(model);
+        producer.send(message);
     }
 
 }

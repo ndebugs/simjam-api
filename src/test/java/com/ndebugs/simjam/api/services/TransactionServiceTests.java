@@ -13,6 +13,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import static org.mockito.Mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.modelmapper.ModelMapper;
 
 @ExtendWith(MockitoExtension.class)
 public class TransactionServiceTests {
@@ -20,6 +21,12 @@ public class TransactionServiceTests {
     @Mock
     TransactionRepository repository;
     
+    @Mock
+    KafkaProducer kafkaProducer;
+    
+    @Mock
+    ModelMapper modelMapper;
+
     @InjectMocks
     TransactionServiceImpl service;
     

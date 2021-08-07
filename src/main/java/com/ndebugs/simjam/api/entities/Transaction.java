@@ -1,5 +1,6 @@
 package com.ndebugs.simjam.api.entities;
 
+import com.ndebugs.simjam.messaging.TransactionType;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Objects;

@@ -1,6 +1,6 @@
 package com.ndebugs.simjam.api.configurations;
 
-import com.ndebugs.simjam.api.models.TransactionModel;
+import com.ndebugs.simjam.messaging.TransactionMessage;
 import java.util.HashMap;
 import java.util.Map;
 import org.apache.kafka.clients.producer.ProducerConfig;
@@ -20,7 +20,7 @@ public class KafkaProducerConfiguration {
     private String host;
 
     @Bean
-    public ProducerFactory<String, TransactionModel> producerFactory() {
+    public ProducerFactory<String, TransactionMessage> producerFactory() {
         Map<String, Object> configs = new HashMap<>();
         configs.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, host);
         configs.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,
@@ -31,7 +31,7 @@ public class KafkaProducerConfiguration {
     }
 
     @Bean
-    public KafkaTemplate<String, TransactionModel> kafkaTemplate() {
+    public KafkaTemplate<String, TransactionMessage> kafkaTemplate() {
         return new KafkaTemplate<>(producerFactory());
     }
 }

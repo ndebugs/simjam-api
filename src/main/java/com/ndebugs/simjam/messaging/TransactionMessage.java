@@ -1,24 +1,14 @@
-package com.ndebugs.simjam.api.models;
+package com.ndebugs.simjam.messaging;
 
-import com.ndebugs.simjam.api.entities.TransactionType;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import javax.validation.constraints.NotNull;
 
-public class TransactionModel {
+public class TransactionMessage {
 
     private Integer id;
-
-    @NotNull
     private Integer memberId;
-
-    @NotNull
     private TransactionType type;
-
-    @NotNull
     private BigDecimal amount;
-    
-    @NotNull
     private LocalDateTime timestamp;
 
     public Integer getId() {
@@ -63,6 +53,6 @@ public class TransactionModel {
 
     @Override
     public String toString() {
-        return "TransactionModel{" + "id=" + id + ", memberId=" + memberId + ", type=" + type + ", amount=" + amount + ", timestamp=" + timestamp + '}';
+        return "TransactionMessage{" + "id=" + id + ", memberId=" + memberId + ", type=" + type + ", amount=" + amount + ", timestamp=" + timestamp + '}';
     }
 }

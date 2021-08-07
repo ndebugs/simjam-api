@@ -1,4 +1,4 @@
-package com.ndebugs.simjam.api.entities;
+package com.ndebugs.simjam.messaging;
 
 public enum TransactionType {
     

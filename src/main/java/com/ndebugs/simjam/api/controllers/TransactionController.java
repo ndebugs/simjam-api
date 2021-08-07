@@ -4,7 +4,6 @@ import com.ndebugs.simjam.api.entities.Member;
 import com.ndebugs.simjam.api.entities.Transaction;
 import com.ndebugs.simjam.api.models.ResponseMessage;
 import com.ndebugs.simjam.api.models.TransactionModel;
-import com.ndebugs.simjam.api.services.KafkaProducer;
 import com.ndebugs.simjam.api.services.MemberService;
 import com.ndebugs.simjam.api.services.TransactionService;
 import java.util.List;
@@ -29,9 +28,6 @@ public class TransactionController {
     private MemberService memberService;
     
     @Autowired
-    private KafkaProducer kafkaProducer;
-    
-    @Autowired
     private ModelMapper modelMapper;
 
     @PostMapping
@@ -41,7 +37,6 @@ public class TransactionController {
         Member member = memberService.findById(model.getMemberId());
         entity.setMember(member);
         
-        kafkaProducer.send(model);
         Transaction result = service.save(entity);
         
         TransactionModel data = modelMapper.map(result, TransactionModel.class);

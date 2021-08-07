@@ -1,6 +1,6 @@
 package com.ndebugs.simjam.api.models;
 
-import com.ndebugs.simjam.api.entities.TransactionType;
+import com.ndebugs.simjam.messaging.TransactionType;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import javax.validation.constraints.NotNull;
@@ -8,13 +8,13 @@ import javax.validation.constraints.NotNull;
 public class TransactionModel {
 
     private Integer id;
-
+    
     @NotNull
     private Integer memberId;
-
+    
     @NotNull
     private TransactionType type;
-
+    
     @NotNull
     private BigDecimal amount;
     
