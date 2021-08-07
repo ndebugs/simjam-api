@@ -6,22 +6,18 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public abstract class CRUDServiceImpl<T, ID> implements CRUDService<T, ID> {
 
-    protected final JpaRepository<T, ID> repository;
-
-    public CRUDServiceImpl(JpaRepository<T, ID> repository) {
-        this.repository = repository;
-    }
-
+    protected abstract JpaRepository<T, ID> getRepository();
+    
     @Override
     public T save(T entity) {
-        return repository.save(entity);
+        return getRepository().save(entity);
     }
 
     @Override
     public T removeById(ID id) {
         T entity = findById(id);
         if (entity != null) {
-            repository.delete(entity);
+            getRepository().delete(entity);
         }
         
         return entity;
@@ -29,11 +25,11 @@ public abstract class CRUDServiceImpl<T, ID> implements CRUDService<T, ID> {
 
     @Override
     public T findById(ID id) {
-        return repository.findById(id).orElse(null);
+        return getRepository().findById(id).orElse(null);
     }
 
     @Override
     public List<T> findAll() {
-        return repository.findAll();
+        return getRepository().findAll();
     }
 }
