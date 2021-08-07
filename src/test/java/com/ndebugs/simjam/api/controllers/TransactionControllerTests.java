@@ -6,6 +6,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.ndebugs.simjam.api.entities.Transaction;
 import com.ndebugs.simjam.api.entities.TransactionType;
 import com.ndebugs.simjam.api.models.TransactionModel;
+import com.ndebugs.simjam.api.services.KafkaProducer;
 import com.ndebugs.simjam.api.services.MemberService;
 import com.ndebugs.simjam.api.services.TransactionService;
 import java.math.BigDecimal;
@@ -42,6 +43,9 @@ public class TransactionControllerTests {
     
     @MockBean
     MemberService memberService;
+    
+    @MockBean
+    private KafkaProducer kafkaProducer;
     
     @Test
     void whenAdd_shouldReturnEntity() throws Exception {
