@@ -1,5 +1,6 @@
 package com.ndebugs.simjam.api.controllers;
 
+import com.ndebugs.simjam.api.exceptions.ApplicationException;
 import com.ndebugs.simjam.api.models.ResponseMessage;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -31,7 +32,7 @@ class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @Override
     protected ResponseEntity<Object> handleExceptionInternal(Exception ex, Object body, HttpHeaders headers, HttpStatus status, WebRequest request) {
-        return toResponseEntity(status, body);
+        return toResponseEntity(status, null, body);
     }
     
     private ResponseEntity<Object> handleBindingResult(BindingResult result, HttpStatus status) {
@@ -47,16 +48,25 @@ class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
             values.add(field.getDefaultMessage());
         });
         
-        return toResponseEntity(status, map);
+        return toResponseEntity(status, null, map);
     }
     
-    private ResponseEntity<Object> toResponseEntity(HttpStatus status, Object data) {
-        ResponseMessage body = ResponseMessage.error(status.value(), status.getReasonPhrase(), data);
+    private ResponseEntity<Object> toResponseEntity(HttpStatus status, String message, Object data) {
+        if (message == null) {
+            message = status.getReasonPhrase();
+        }
+        
+        ResponseMessage body = ResponseMessage.error(status.value(), message, data);
         return ResponseEntity.ok(body);
+    }
+    
+    @ExceptionHandler(ApplicationException.class)
+    public ResponseEntity<Object> handleApplicationException(ApplicationException e) {
+        return toResponseEntity(e.getStatus(), e.getMessage(), null);
     }
     
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handleException(Exception e) {
-        return toResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR, null);
+        return toResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR, null, null);
     }
 }
