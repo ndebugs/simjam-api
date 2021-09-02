@@ -2,7 +2,6 @@ package com.ndebugs.simjam.api.controllers;
 
 import com.ndebugs.simjam.api.entities.Member;
 import com.ndebugs.simjam.api.entities.Transaction;
-import com.ndebugs.simjam.api.models.ResponseMessage;
 import com.ndebugs.simjam.api.models.TransactionModel;
 import com.ndebugs.simjam.api.services.MemberService;
 import com.ndebugs.simjam.api.services.TransactionService;
@@ -31,25 +30,22 @@ public class TransactionController {
     private ModelMapper modelMapper;
 
     @PostMapping
-    public ResponseMessage<TransactionModel> add(@RequestBody @Valid TransactionModel model) {
+    public TransactionModel add(@RequestBody @Valid TransactionModel model) {
         Transaction entity = modelMapper.map(model, Transaction.class);
         
         Member member = memberService.findById(model.getMemberId());
         entity.setMember(member);
         
         Transaction result = service.save(entity);
-        
-        TransactionModel data = modelMapper.map(result, TransactionModel.class);
-        return ResponseMessage.success(data);
+        return modelMapper.map(result, TransactionModel.class);
     }
 
     @GetMapping
-    public ResponseMessage<List<TransactionModel>> findAll() {
+    public List<TransactionModel> findAll() {
         List<Transaction> result = service.findAll();
         
-        List<TransactionModel> data = result.stream()
+        return result.stream()
                 .map(entity -> modelMapper.map(entity, TransactionModel.class))
                 .collect(Collectors.toList());
-        return ResponseMessage.success(data);
     }
 }

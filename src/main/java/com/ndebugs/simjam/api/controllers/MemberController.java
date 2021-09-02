@@ -2,7 +2,6 @@ package com.ndebugs.simjam.api.controllers;
 
 import com.ndebugs.simjam.api.entities.Member;
 import com.ndebugs.simjam.api.models.MemberModel;
-import com.ndebugs.simjam.api.models.ResponseMessage;
 import com.ndebugs.simjam.api.services.MemberService;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,22 +25,19 @@ public class MemberController {
     private ModelMapper modelMapper;
     
     @PostMapping
-    public ResponseMessage<MemberModel> add(@RequestBody @Valid MemberModel model) {
+    public MemberModel add(@RequestBody @Valid MemberModel model) {
         Member entity = modelMapper.map(model, Member.class);
         
         Member result = service.save(entity);
-        
-        MemberModel data = modelMapper.map(result, MemberModel.class);
-        return ResponseMessage.success(data);
+        return modelMapper.map(result, MemberModel.class);
     }
     
     @GetMapping
-    public ResponseMessage<List<MemberModel>> findAll() {
+    public List<MemberModel> findAll() {
         List<Member> result = service.findAll();
         
-        List<MemberModel> data = result.stream()
+        return result.stream()
                 .map(entity -> modelMapper.map(entity, MemberModel.class))
                 .collect(Collectors.toList());
-        return ResponseMessage.success(data);
     }
 }
