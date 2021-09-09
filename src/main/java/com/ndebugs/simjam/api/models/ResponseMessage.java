@@ -1,6 +1,7 @@
 package com.ndebugs.simjam.api.models;
 
 import java.time.LocalDateTime;
+import org.springframework.http.HttpStatus;
 
 public class ResponseMessage<T> {
     
@@ -54,7 +55,7 @@ public class ResponseMessage<T> {
     }
     
     public static <T> ResponseMessage<T> success(T data) {
-        return new ResponseMessage(0, null, data);
+        return new ResponseMessage(HttpStatus.OK.value(), null, data);
     }
     
     public static ResponseMessage error(Integer code, String message) {
